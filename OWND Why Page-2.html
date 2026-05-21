@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OWND – ทำไมเช่าเพื่อซื้อกับ OWND ถึงดีกว่า</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:        #071a0f;
+      --green:     #22c55e;
+      --green-hi:  #4ade80;
+      --green-dk:  #15803d;
+      --green-mid: #166534;
+      --green-hdr: #145228;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Kanit', sans-serif;
+      background: var(--bg);
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      /* hero glow: G900 → G800 → G1000 */
+      background-image:
+        radial-gradient(ellipse 100% 50% at 50% 0%, #1e4f2b 0%, #0e2e1a 38%, #071a0f 68%);
+    }
+
+    /* ═══════════════════════════════ NAV ═══════════════════════════════ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 56px;
+      height: 66px;
+      background: rgba(7,26,15,0.90);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(34,197,94,0.10);
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 9px;
+      text-decoration: none; color: #fff;
+    }
+
+    .nav-logo-text {
+      font-size: 21px; font-weight: 800; letter-spacing: 2.5px;
+    }
+
+    .nav-links {
+      display: flex; gap: 32px; list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.78); text-decoration: none;
+      font-size: 15px; font-weight: 500;
+      white-space: nowrap;
+      transition: color .18s;
+    }
+    .nav-links a:hover { color: var(--green); }
+
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+
+    .btn-ghost {
+      padding: 8px 22px;
+      border: 1.5px solid rgba(255,255,255,0.55);
+      border-radius: 9px;
+      background: transparent;
+      color: #fff;
+      font-family: 'Kanit', sans-serif;
+      font-size: 14px; font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all .18s;
+    }
+    .btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,0.07); }
+
+    .btn-fill {
+      padding: 9px 22px;
+      border: none; border-radius: 9px;
+      background: var(--green-dk);
+      color: #fff;
+      font-family: 'Kanit', sans-serif;
+      font-size: 14px; font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .18s;
+    }
+    .btn-fill:hover { background: var(--green); }
+
+    /* ═══════════════════════════════ SCROLL DOTS ═══════════════════════════════ */
+    .scroll-dots {
+      position: fixed; right: 22px; top: 50%;
+      transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 9px;
+      z-index: 100;
+    }
+    .sdot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.22);
+      transition: all .3s;
+    }
+    .sdot.active {
+      height: 22px; border-radius: 4px;
+      background: var(--g300);  /* Green-300 #22c55e */
+    }
+
+    /* ═══════════════════════════════ HERO ═══════════════════════════════ */
+    .hero-wrap {
+      padding-top: 66px;
+      position: relative;
+    }
+
+    .hero-inner {
+      position: relative;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 52px 56px 40px;
+      text-align: center;
+    }
+
+    .hero-img-left {
+      position: absolute;
+      left: 30px; top: 50%;
+      transform: translateY(-46%);
+      width: 200px;
+      pointer-events: none;
+      filter: drop-shadow(0 8px 32px rgba(0,0,0,0.4));
+    }
+
+    .hero-img-right {
+      position: absolute;
+      right: 16px; top: 50%;
+      transform: translateY(-46%);
+      width: 188px;
+      pointer-events: none;
+      filter: drop-shadow(0 8px 32px rgba(0,0,0,0.35));
+    }
+
+    .why-badge {
+      display: inline-flex; align-items: center;
+      border: 1.5px solid var(--g300);
+      border-radius: 50px;
+      padding: 5px 20px;
+      font-size: 12.5px; font-weight: 600;
+      color: var(--g300);
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+      white-space: nowrap;
+    }
+
+    .hero-title-1 {
+      font-size: 48px; font-weight: 700; line-height: 1.18; color: #fff;  /* Kanit 700 = H1 Bold */
+    }
+    .hero-title-2 {
+      font-size: 50px; font-weight: 700; line-height: 1.18; color: var(--g300);  /* Green-300 */
+      margin-top: 2px;
+    }
+
+    .hero-sub {
+      font-size: 15.5px; font-weight: 400;
+      color: rgba(255,255,255,0.62);
+      line-height: 1.85;
+      max-width: 520px;
+      margin: 18px auto 0;
+      text-wrap: pretty;
+    }
+
+    /* ═══════════════════════════════ PAGE BODY ═══════════════════════════════ */
+    .page-body {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 56px 64px;
+    }
+
+    /* ═══════════════════════════════ COMPARISON CARD ═══════════════════════════════ */
+    .comp-card {
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.09);
+      background: #0b1f14;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.4);
+    }
+
+    /* 3-column grid */
+    .comp-grid {
+      display: grid;
+      grid-template-columns: 31% 34.5% 34.5%;
+    }
+
+    /* ── HEADER ROW ── */
+    .th-feat {
+      background: #0b1f14;
+      padding: 30px 28px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .th-feat-title {
+      font-size: 18px; font-weight: 700; color: #fff; line-height: 1.45;  /* P1 Bold */
+    }
+    .th-feat-sub {
+      font-size: 16px; font-weight: 500; color: var(--green); margin-top: 3px;
+    }
+
+    .th-trad {
+      background: #1b1b1b;
+      padding: 28px 18px;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 10px;
+      border-left: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .th-ownd {
+      background: var(--green-hdr);
+      padding: 28px 18px;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 10px;
+      border-left: 1px solid rgba(34,197,94,0.22);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* "ดีกว่า" corner ribbon */
+    .better-ribbon {
+      position: absolute;
+      top: 18px; right: -30px;
+      background: var(--g300);    /* Green-300 #22c55e */
+      color: #fff;
+      font-size: 11.5px; font-weight: 700;
+      padding: 5px 40px;
+      transform: rotate(35deg);
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 10px rgba(34,197,94,0.35);
+      white-space: nowrap;
+    }
+
+    .col-icon {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .ci-trad { background: rgba(255,255,255,0.11); }
+    .ci-ownd { background: rgba(255,255,255,0.14); }
+
+    .th-col-name {
+      font-size: 18px; font-weight: 700; color: #fff; text-align: center;  /* P1 Bold */
+    }
+    .th-col-sub {
+      font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.55);   /* P3 */
+      text-align: center; margin-top: -5px;
+    }
+
+    /* ── DATA ROWS ── */
+    .tr-feat {
+      background: #0b1f14;
+      padding: 18px 28px;
+      display: flex; align-items: center; gap: 14px;
+      border-top: 1px solid rgba(255,255,255,0.055);
+    }
+    /* alternating: even rows (2,4) slightly lighter */
+    .tr-feat:nth-child(6n+7),
+    .tr-feat:nth-child(6n+1)  { background: #0e2419; }
+
+    .feat-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      border-radius: 10px;
+      background: rgba(34,197,94,0.13);
+      border: 1px solid rgba(34,197,94,0.18);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .feat-label {
+      font-size: 14px; font-weight: 600; color: #fff;  /* P3 Bold */
+    }
+
+    .tr-trad {
+      background: #202020;
+      padding: 18px 20px;
+      display: flex; align-items: center; gap: 12px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-left: 1px solid rgba(255,255,255,0.05);
+    }
+    .tr-trad:nth-child(6n+8),
+    .tr-trad:nth-child(6n+2)  { background: #252525; }
+
+    .tr-ownd {
+      background: #e2faee;
+      padding: 18px 20px;
+      display: flex; align-items: center; gap: 12px;
+      border-top: 1px solid rgba(34,197,94,0.12);
+      border-left: 1px solid rgba(34,197,94,0.14);
+    }
+    .tr-ownd:nth-child(6n+9),
+    .tr-ownd:nth-child(6n+3)  { background: #d3f5e4; }
+
+    /* status circles */
+    .sc {
+      width: 32px; height: 32px; flex-shrink: 0;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .sc-x    { background: #fee2e2; }                                      /* keep red for error */
+    .sc-ok   { background: var(--green); box-shadow: 0 0 0 3px rgba(34,197,94,0.18); }
+    .sc-wave { background: #e5e7eb; }
+
+    .cell-main {
+      font-size: 14px; font-weight: 600;   /* P3 Bold */
+    }
+    .tr-trad .cell-main { color: rgba(255,255,255,0.87); }
+    .tr-ownd .cell-main { color: #064e3b; }
+
+    .cell-sub {
+      font-size: 12px; font-weight: 400; margin-top: 2px;  /* P4 */
+    }
+    .tr-trad .cell-sub { color: rgba(255,255,255,0.40); }
+    .tr-ownd .cell-sub { color: #166534; }
+
+    /* ═══════════════════════════════ CTA BANNER ═══════════════════════════════ */
+    .cta-banner {
+      background: #0d2619;
+      border-top: 1px solid rgba(34,197,94,0.12);
+      padding: 22px 36px;
+      display: flex; align-items: center; gap: 18px;
+    }
+
+    .cta-img {
+      width: 86px; flex-shrink: 0;
+    }
+
+    .cta-copy { flex: 1; }
+
+    .cta-title {
+      font-size: 18px; font-weight: 700; color: var(--green);
+    }
+    .cta-desc {
+      font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.60);  /* P3 */
+      line-height: 1.7; margin-top: 4px;
+    }
+
+    .btn-cta {
+      display: flex; align-items: center; gap: 8px;
+      padding: 14px 26px;
+      background: var(--green);
+      border: none; border-radius: 10px;
+      color: #fff;
+      font-family: 'Kanit', sans-serif;
+      font-size: 15px; font-weight: 600;
+      cursor: pointer; white-space: nowrap;
+      transition: background .18s;
+      flex-shrink: 0;
+    }
+    .btn-cta:hover { background: var(--green-hi); }
+
+    /* ═══════════════════════════════ FOOTER STRIP ═══════════════════════════════ */
+    .footer-strip {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      margin-top: 50px;
+      padding-top: 36px;
+      border-top: 1px solid rgba(34,197,94,0.09);
+    }
+
+    .fi {
+      display: flex; align-items: center; gap: 14px;
+      padding: 0 30px;
+    }
+    .fi:not(:last-child) {
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .fi-icon {
+      width: 46px; height: 46px; flex-shrink: 0;
+      border-radius: 50%;
+      background: rgba(34,197,94,0.11);
+      border: 1px solid rgba(34,197,94,0.18);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .fi-title { font-size: 16px; font-weight: 600; color: #fff; }   /* P2 Bold */
+    .fi-desc  { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.50); margin-top: 2px; }   /* P4 */
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAV ═══ -->
+  <nav class="nav">
+    <a href="#" class="nav-logo">
+      <!-- OWND diamond logo -->
+      <svg width="34" height="34" viewBox="0 0 36 36" fill="none">
+        <path d="M18 2 L34 18 L18 34 L2 18 Z" fill="none" stroke="#22c55e" stroke-width="2.2" stroke-linejoin="round"/>
+        <path d="M13 18 L18 11 L23 18 L18 26 Z" fill="#22c55e"/>
+      </svg>
+      <span class="nav-logo-text">OWND</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#">เกี่ยวกับ OWND</a></li>
+      <li><a href="#">บริการของเรา</a></li>
+      <li><a href="#">คำถามที่พบบ่อย</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="btn-ghost">เข้าสู่ระบบ</button>
+      <button class="btn-fill">สมัครใช้บริการ</button>
+    </div>
+  </nav>
+
+  <!-- ═══ SCROLL DOTS ═══ -->
+  <div class="scroll-dots">
+    <div class="sdot"></div>
+    <div class="sdot active"></div>
+    <div class="sdot"></div>
+    <div class="sdot"></div>
+    <div class="sdot"></div>
+  </div>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero-wrap">
+    <div class="hero-inner">
+      <!-- Left asset: Glass house with golden key -->
+      <img class="hero-img-left"
+           src="uploads/magnific__upgrade-the-attached-image-to-productionlevel-deta__73064.png"
+           alt="บ้านกับกุญแจ" />
+
+      <!-- Right asset: Shield with arrow -->
+      <img class="hero-img-right"
+           src="uploads/magnific__upgrade-the-attached-image-to-productionlevel-deta__73063.png"
+           alt="โล่พร้อมลูกศรขึ้น" />
+
+      <div class="why-badge">WHY OWND</div>
+      <div class="hero-title-1">ทำไมเช่าเพื่อซื้อกับ OWND</div>
+      <div class="hero-title-2">ถึงดีกว่า</div>
+      <p class="hero-sub">
+        เปรียบเทียบความแตกต่างระหว่างการเช่าธรรมดา กับโมเดลเช่าเพื่อซื้อของ OWND<br>
+        ที่ออกแบบมาเพื่อเส้นทางสู่การเป็นเจ้าของบ้าน
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ PAGE BODY ═══ -->
+  <div class="page-body">
+
+    <!-- ═══ COMPARISON CARD ═══ -->
+    <div class="comp-card">
+      <div class="comp-grid">
+
+        <!-- ── HEADER ── -->
+        <div class="th-feat">
+          <div class="th-feat-title">เปรียบเทียบให้เห็นชัด</div>
+          <div class="th-feat-sub">เลือกสิ่งที่ใช่สำหรับคุณ</div>
+        </div>
+
+        <div class="th-trad">
+          <div class="col-icon ci-trad">
+            <!-- Building icon -->
+            <svg width="27" height="27" viewBox="0 0 28 28" fill="none">
+              <path d="M2 12 L14 3 L26 12" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="4" y="11" width="20" height="14" rx="1" stroke="white" stroke-width="1.7"/>
+              <rect x="7.5" y="14.5" width="4.5" height="4" rx="0.5" fill="white" fill-opacity="0.55"/>
+              <rect x="16" y="14.5" width="4.5" height="4" rx="0.5" fill="white" fill-opacity="0.55"/>
+              <rect x="10.5" y="19.5" width="7" height="5.5" rx="0.5" fill="white" fill-opacity="0.55"/>
+            </svg>
+          </div>
+          <div class="th-col-name">เช่าธรรมดา</div>
+          <div class="th-col-sub">Traditional Rent</div>
+        </div>
+
+        <div class="th-ownd">
+          <div class="better-ribbon">ดีกว่า</div>
+          <div class="col-icon ci-ownd">
+            <!-- OWND logo icon -->
+            <svg width="27" height="27" viewBox="0 0 36 36" fill="none">
+              <path d="M18 3 L33 18 L18 33 L3 18 Z" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2"/>
+              <path d="M13 18 L18 12 L23 18 L18 25 Z" fill="rgba(255,255,255,0.90)"/>
+            </svg>
+          </div>
+          <div class="th-col-name">OWND</div>
+          <div class="th-col-sub">Rent-to-Own</div>
+        </div>
+
+        <!-- ── ROW 1 : เข้าอยู่ได้ทันที ── -->
+        <div class="tr-feat">
+          <div class="feat-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M3 11L12 4l9 7v9a1 1 0 01-1 1H5a1 1 0 01-1-1v-9z" stroke="#22c55e" stroke-width="1.8"/>
+              <path d="M9 22V14h6v8" stroke="#22c55e" stroke-width="1.8"/>
+            </svg>
+          </div>
+          <span class="feat-label">เข้าอยู่ได้ทันที</span>
+        </div>
+        <div class="tr-trad">
+          <div class="sc sc-x">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M3 3l7 7M10 3l-7 7" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="cell-main">ไม่สามารถเข้าอยู่ได้ทันที</div>
+            <div class="cell-sub">ต้องวางเงินประกัน + ล่วงหน้า</div>
+          </div>
+        </div>
+        <div class="tr-ownd">
+          <div class="sc sc-ok">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M2 6.5l3.5 3.5 5.5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="cell-main">เข้าอยู่ได้ทันที</div>
+            <div class="cell-sub">ไม่ต้องวางเงินประกัน</div>
+          </div>
+        </div>
+
+        <!-- ── ROW 2 : ผ่อนสะสมเป็นทรัพย์สิน ── -->
+        <div class="tr-feat">
+          <div class="feat-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M3 11L12 4l9 7v9a1 1 0 01-1 1H5a1 1 0 01-1-1v-9z" stroke="#22c55e" stroke-width="1.8"/>
+              <circle cx="12" cy="15" r="2.5" stroke="#22c55e" stroke-width="1.5"/>
+              <path d="M12 12v-2.5M12 19.5V17" stroke="#22c55e" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="feat-label">ผ่อนสะสมเป็นทรัพย์สิน</span>
+        </div>
+        <div class="tr-trad">
+          <div class="sc sc-x">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M3 3l7 7M10 3l-7 7" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="cell-main">ค่าเช่าเป็นค่าใช้จ่าย</div>
+            <div class="cell-sub">ไม่เกิดเป็นทรัพย์สิน</div>
+          </div>
+        </div>
+        <div class="tr-ownd">
+          <div class="sc sc-ok">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M2 6.5l3.5 3.5 5.5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="cell-main">ผ่อนสะสมเป็นทรัพย์สิน</div>
+            <div class="cell-sub">ทุกยอดผ่อนมีความหมาย</div>
+          </div>
+        </div>
+
+        <!-- ── ROW 3 : ไม่ต้องตรวจเครดิตจากแบงก์ ── -->
+        <div class="tr-feat">
+          <div class="feat-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <rect x="4" y="3" width="16" height="19" rx="2" stroke="#22c55e" stroke-width="1.8"/>
+              <path d="M8 8h8M8 12h8M8 16h5" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="feat-label">ไม่ต้องตรวจเครดิตจากแบงก์</span>
+        </div>
+        <div class="tr-trad">
+          <div class="sc sc-x">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M3 3l7 7M10 3l-7 7" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="cell-main">ต้องตรวจเครดิต</div>
+            <div class="cell-sub">และมีเอกสารยุ่งยาก</div>
+          </div>
+        </div>
+        <div class="tr-ownd">
+          <div class="sc sc-ok">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M2 6.5l3.5 3.5 5.5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="cell-main">ไม่ต้องตรวจเครดิตจากแบงก์</div>
+            <div class="cell-sub">สมัครง่าย อนุมัติไว</div>
+          </div>
+        </div>
+
+        <!-- ── ROW 4 : ราคาล็อคตลอดสัญญา ── -->
+        <div class="tr-feat">
+          <div class="feat-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <rect x="5" y="11" width="14" height="10" rx="2" stroke="#22c55e" stroke-width="1.8"/>
+              <path d="M8 11V7.5a4 4 0 018 0V11" stroke="#22c55e" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="12" cy="16.5" r="1.5" fill="#22c55e"/>
+            </svg>
+          </div>
+          <span class="feat-label">ราคาล็อคตลอดสัญญา</span>
+        </div>
+        <div class="tr-trad">
+          <div class="sc sc-wave">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M1.5 7 Q3.5 4 7 7 Q10.5 10 12.5 7" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+          <div>
+            <div class="cell-main">ราคาอาจปรับขึ้น</div>
+            <div class="cell-sub">ตามตลาด หรือสัญญาเช่า</div>
+          </div>
+        </div>
+        <div class="tr-ownd">
+          <div class="sc sc-ok">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M2 6.5l3.5 3.5 5.5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="cell-main">ราคาล็อคตลอดสัญญา</div>
+            <div class="cell-sub">อุ่นใจ ไม่ต้องกลัวราคาเพิ่ม</div>
+          </div>
+        </div>
+
+        <!-- ── ROW 5 : เลือกซื้อได้เมื่อพร้อม ── -->
+        <div class="tr-feat">
+          <div class="feat-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 21C12 21 4 15.5 4 9.5a8 8 0 0116 0C20 15.5 12 21 12 21z" stroke="#22c55e" stroke-width="1.8" fill="none"/>
+              <path d="M9.5 9.5l2 2 3.5-3.5" stroke="#22c55e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="feat-label">เลือกซื้อได้เมื่อพร้อม</span>
+        </div>
+        <div class="tr-trad">
+          <div class="sc sc-x">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M3 3l7 7M10 3l-7 7" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="cell-main">ไม่มีสิทธิ์ซื้อ</div>
+            <div class="cell-sub">ต้องหาบ้านใหม่เมื่อสิ้นสุดสัญญา</div>
+          </div>
+        </div>
+        <div class="tr-ownd">
+          <div class="sc sc-ok">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M2 6.5l3.5 3.5 5.5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="cell-main">เลือกซื้อได้เมื่อพร้อม</div>
+            <div class="cell-sub">เป็นเจ้าของบ้านได้ตามศักดา</div>
+          </div>
+        </div>
+
+      </div><!-- /comp-grid -->
+
+      <!-- ═══ CTA BANNER ═══ -->
+      <div class="cta-banner">
+        <!-- Bottom-section asset: orbital shield -->
+        <img class="cta-img"
+             src="uploads/magnific__upgrade-the-attached-image-to-productionlevel-deta__73062.png"
+             alt="OWND Shield" />
+        <div class="cta-copy">
+          <div class="cta-title">มากกว่าการเช่า คือการวางแผนอนาคต</div>
+          <div class="cta-desc">
+            OWND ไม่ใช่แค่ที่อยู่อาศัย แต่คือโอกาสในการสร้างความมั่นคง<br>
+            และเป็นเจ้าของบ้านได้จริง
+          </div>
+        </div>
+        <button class="btn-cta">
+          เริ่มต้นเส้นทางสู่บ้านของคุณ
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+    </div><!-- /comp-card -->
+
+    <!-- ═══ FOOTER STRIP ═══ -->
+    <div class="footer-strip">
+
+      <div class="fi">
+        <div class="fi-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L4 6v6c0 5.52 3.5 10.38 8 11.55C16.5 22.38 20 17.52 20 12V6l-8-4z"
+                  stroke="#22c55e" stroke-width="1.8" fill="none"/>
+            <path d="M9 12l2 2 4-4" stroke="#22c55e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="fi-title">ปลอดภัย มั่นใจได้</div>
+          <div class="fi-desc">สัญญาชัดเจน ถูกต้องตามกฎหมาย</div>
+        </div>
+      </div>
+
+      <div class="fi">
+        <div class="fi-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <circle cx="9" cy="7" r="3" stroke="#22c55e" stroke-width="1.8"/>
+            <circle cx="15.5" cy="7" r="3" stroke="#22c55e" stroke-width="1.8"/>
+            <path d="M2 20c0-3.31 3.13-6 7-6" stroke="#22c55e" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M14 14c3.31 0 6 2.69 6 6" stroke="#22c55e" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="fi-title">ดูแลตลอดสัญญา</div>
+          <div class="fi-desc">ทีมงานพร้อมดูแลคุณทุกขั้นตอน</div>
+        </div>
+      </div>
+
+      <div class="fi">
+        <div class="fi-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M3 11L12 4l9 7v9a1 1 0 01-1 1H5a1 1 0 01-1-1v-9z"
+                  stroke="#22c55e" stroke-width="1.8" fill="none"/>
+            <path d="M9 22V14h6v8" stroke="#22c55e" stroke-width="1.8"/>
+          </svg>
+        </div>
+        <div>
+          <div class="fi-title">บ้านคุณ..เป็นจริงได้</div>
+          <div class="fi-desc">เริ่มต้นวันนี้ เพื่ออนาคตที่ดีกว่า</div>
+        </div>
+      </div>
+
+    </div><!-- /footer-strip -->
+
+  </div><!-- /page-body -->
+
+</body>
+</html>
